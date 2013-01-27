@@ -22,8 +22,25 @@ public class NewsServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("news", getLatestNews());
-		request.getRequestDispatcher("/WEB-INF/jsp/news.jsp").forward(request, response);
+		if ("json".equals(request.getParameter("format"))) {
+			request.setAttribute("json", getJsonNews());
+			request.getRequestDispatcher("/WEB-INF/jsp/jsonNews.jsp").forward(request, response);
+		} else {
+			request.setAttribute("news", getLatestNews());
+			request.getRequestDispatcher("/WEB-INF/jsp/news.jsp").forward(request, response);
+		}
+	}
+
+	private String getJsonNews() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("[");
+		for (News item : getLatestNews()) {
+			sb.append("{");
+			sb.append("id:").append(item.getId()).append(",").append("title:").append("\"").append(item.getTitle()).append("\",")
+					.append("viewCount:").append(item.getViewCount());
+			sb.append("},");
+		}
+		return sb.deleteCharAt(sb.length() - 1).append("]").toString();
 	}
 
 	private List<News> getLatestNews() {

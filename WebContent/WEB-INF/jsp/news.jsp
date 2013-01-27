@@ -3,8 +3,8 @@
 <news> 
 	<c:forEach items="${news }" var="item">
 		<new id="${item.id }">
-			<title>${item.title }></title>
-			<viewCount>${item.viewCount }></viewCount>
+			<title>${item.title }</title>
+			<viewCount>${item.viewCount }</viewCount>
 		</new>
 	</c:forEach>
 </news>

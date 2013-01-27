@@ -17,9 +17,6 @@ public class ManageNewsServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String title = request.getParameter("title");
-		if (title != null && !"".equals(title.trim())) {
-			title = new String(request.getParameter("title").getBytes("iso-8859-1"), "utf-8");
-		}
 		String viewCount = request.getParameter("viewCount");
 		response.setContentType("text/html;charset=utf-8");
 		response.getWriter().println(title + "--->" + viewCount);
